@@ -65,6 +65,7 @@ DEFAULTS = {
     'ARA_PLAYBOOK_PER_PAGE': 10,
     'ARA_RESULT_PER_PAGE': 25,
     'ARA_SQL_DEBUG': False,
+    'ARA_BROWSER_TIPS':False,
     'ARA_TMP_DIR': os.path.expanduser('~/.ansible/tmp')
 }
 
@@ -101,6 +102,11 @@ ARA_TMP_DIR = _ara_config(config, 'local_tmp', 'ANSIBLE_LOCAL_TEMP',
                           default=DEFAULTS['ARA_TMP_DIR'],
                           section='defaults',
                           value_type='tmppath')
+
+
+ARA_BROWSER_TIPS = _ara_config(config, 'browser_tips',
+                              'ARA_BROWSER_TIPS',
+                              value_type='boolean')
 
 # Static generation with flask-frozen
 ARA_IGNORE_EMPTY_GENERATION = _ara_config(config,

@@ -50,12 +50,12 @@ def report_list(page=1):
     stats = utils.get_summary_stats(playbooks.items, 'playbook_id')
 
     result_per_page = current_app.config['ARA_RESULT_PER_PAGE']
-
+    browser_tips = current_app.config['ARA_BROWSER_TIPS']
     return render_template('report_list.html',
                            active='reports',
                            result_per_page=result_per_page,
                            playbooks=playbooks,
-                           stats=stats)
+                           stats=stats,browser_tips=browser_tips)
 
 # Note (dmsimard)
 # We defer the loading of the different data tables and render them
@@ -186,3 +186,30 @@ def ajax_stats(playbook):
         results['data'].append(data)
 
     return jsonify(results)
+
+ 
+@reports.route('/playbook/<id>.txt')
+def get_playbook(id):
+    print id
+    playbooks = (models.Playbook.query
+                     .filter(models.Playbook.id.in_([id])))
+
+    if not playbooks.count():
+        return redirect(url_for('home.main'))
+
+    playbook_per_page = current_app.config['ARA_PLAYBOOK_PER_PAGE']
+    # Paginate unless playbook_per_page is set to 0
+    if playbook_per_page >= 1:
+        playbooks = playbooks.paginate(1, playbook_per_page, False)
+    else:
+        playbooks = playbooks.paginate(1, None, False)
+
+    stats = utils.get_summary_stats(playbooks.items, 'playbook_id')
+
+    result_per_page = current_app.config['ARA_RESULT_PER_PAGE']
+    browser_tips = current_app.config['ARA_BROWSER_TIPS']
+    return render_template('single_report.html',
+                           active='reports',
+                           result_per_page=result_per_page,
+                           playbooks=playbooks,
+                           stats=stats,browser_tips=browser_tips)

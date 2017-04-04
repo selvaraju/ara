@@ -266,11 +266,13 @@ class CallbackModule(CallbackBase):
 
     def v2_playbook_on_start(self, playbook):
         path = os.path.abspath(playbook._file_name)
-
+        meta_data= os.getenv('CLOUD_META', 'None')
         LOG.debug('starting playbook %s', path)
+        #print ("meta_data: %s", meta_data)
         self.playbook = models.Playbook(
             ansible_version=ansible_version,
-            path=path
+            path=path,
+            meta_data=meta_data
         )
 
         self.playbook.start()

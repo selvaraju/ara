@@ -168,6 +168,7 @@ class Playbook(db.Model, TimedEntity):
     id = std_pkey()
     path = db.Column(db.String(255))
     ansible_version = db.Column(db.String(255))
+    meta_data = db.Column(db.Text)
 
     data = one_to_many('Data', backref='playbook')
     files = one_to_many('File', backref='playbook')
@@ -363,7 +364,7 @@ class Host(db.Model):
     id = std_pkey()
     playbook_id = std_fkey('playbooks.id')
     name = db.Column(db.String(255), index=True)
-
+    #kick_host = db.Column(db.String(255), index=True)
     facts = one_to_one('HostFacts', backref='host')
     task_results = one_to_many('TaskResult', backref='host')
     stats = one_to_one('Stats', backref='host')

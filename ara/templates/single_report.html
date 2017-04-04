@@ -1,15 +1,11 @@
-{% extends "layout.html" %}
+{% extends "plain_layout.html" %}
 
 {% block content %}
 <!-- Begin report list -->
 <div class="col-md-custom col-md-offset-custom">
     <div class="row">
         <br>
-        <div class="alert alert-info">
-            <span class="pficon pficon-info"></span>
-            Browse your playbook reports here: Get started by expanding the "<strong>Hosts</strong>", "<strong>Plays</strong>", "<strong>Files</strong>" or "<strong>Tasks</strong>" panels below.
-            You can mouse over most elements to have more details about them.
-        </div>
+     
         <div class="list-group list-view-pf list-view-pf-view">
             {% for playbook in playbooks.items %}
             <!-- Begin playbook iteration -->
@@ -56,7 +52,7 @@
                                 </div>
                             </div>
                             <div class="list-view-pf-additional-info-item" title="Tasks involved in the playbook">
-                                <div class="list-view-pf-expand">
+                                <div class="list-view-pf-expand" id="tstTask">
                                     <span class="fa fa-angle-right"></span>
                                     <span class="fa fa-check"></span>
                                     <strong>{{ playbook.tasks | fast_count }}</strong> Tasks
@@ -143,7 +139,7 @@
                 <!-- End playbook host stats details -->
 
                 <!-- Begin playbook play details -->
-                <div class="list-group-item-container container-fluid hidden">
+                <div class="list-group-item-container container-fluid hidden" >
                     <div class="close">
                         <span class="pficon pficon-close"></span>
                     </div>
@@ -245,7 +241,7 @@
                 <!-- End playbook file details -->
 
                 <!-- Begin playbook task details -->
-                <div class="list-group-item-container container-fluid hidden">
+                <div class="list-group-item-container container-fluid hidden" id="Task_List">
                     <div class="close">
                         <span class="pficon pficon-close"></span>
                     </div>
@@ -422,7 +418,7 @@
 <!-- Begin pagination -->
 <div class="col-md-11 col-md-offset-custom">
     <div class="row text-center">
-        Displaying <strong>{{ playbooks.items |length }}</strong> playbook reports out of a total of <strong>{{ playbooks.total }}</strong>.
+        <!-- Displaying <strong>{{ playbooks.items |length }}</strong> playbook reports out of a total of <strong>{{ playbooks.total }}</strong>. -->
     </div>
     {% if playbooks.pages > 1 %}
     <div class="row text-center">
@@ -549,6 +545,7 @@
     });
     {% endif %}
     {%- endfor %}
+    $("#Task_List").removeClass('hidden');
 </script>
 <!-- End report list -->
 {% endblock %}
