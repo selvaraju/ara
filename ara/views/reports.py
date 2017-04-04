@@ -191,8 +191,11 @@ def ajax_stats(playbook):
 @reports.route('/playbook/<id>.txt')
 def get_playbook(id):
     print id
+   
     playbooks = (models.Playbook.query
-                     .filter(models.Playbook.id.in_([id])))
+                     .filter(models.Playbook.meta_data.in_([id]))
+                     .order_by(models.Playbook.time_start.desc()))
+    print playbooks                
 
     if not playbooks.count():
         return redirect(url_for('home.main'))
