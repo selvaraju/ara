@@ -1,7 +1,27 @@
 {% include "head.html" %}
 {% import "macros.html" as macros %}
 <body>
- 
+
+
+<nav class="navbar navbar-default navbar-pf" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+            <img src="/static/images/logo-header.svg" width="81" height="32" alt="ARA: Ansible Run Analysis" />
+        </a>
+  
+  
+    </div>
+             
+</nav>
+ <div class="row text-center">           
+ <h1><strong>   Ansible Run Analysis</strong></h1>
+</div>
 
 {% block content %}
 {% endblock %}
